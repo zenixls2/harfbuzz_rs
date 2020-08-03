@@ -118,8 +118,7 @@ impl<'a> Font<'a> {
             let face = face.into();
             let raw_font = hb::hb_font_create(face.as_raw());
             // set default font funcs for a completely new font
-            let p: *const std::ffi::c_void = std::ptr::null();
-            hb::hb_font_set_funcs(raw_font, hb::hb_font_funcs_get_empty(), p as *mut _, None);
+            hb::hb_ot_font_set_funcs(raw_font);
             Owned::from_raw(raw_font)
         }
     }

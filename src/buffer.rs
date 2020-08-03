@@ -43,7 +43,7 @@ impl SegmentProperties {
 /// both horizontal and vertical directions. All positions in `GlyphPosition`
 /// are relative to the current point.
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Debug, Copy, Clone)]
 pub struct GlyphPosition {
     /// how much the line advances after drawing this glyph when setting text in
     /// horizontal direction.
@@ -58,20 +58,6 @@ pub struct GlyphPosition {
     /// not affect how much the line advances.
     pub y_offset: Position,
     var: hb::hb_var_int_t,
-}
-
-impl fmt::Debug for GlyphPosition {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        unsafe {
-            f.debug_struct("GlyphPosition")
-                .field("x_advance", &self.x_advance)
-                .field("y_advance", &self.y_advance)
-                .field("x_offset", &self.x_offset)
-                .field("y_offset", &self.y_offset)
-                .field("var", &self.var.u32)
-                .finish()
-        }
-    }
 }
 
 impl GlyphPosition {
@@ -112,7 +98,7 @@ impl GlyphFlags {
     }
 }
 
-#[derive(Copy, Clone)]
+#[derive(Debug, Copy, Clone)]
 #[repr(C)]
 pub struct GlyphInfo {
     pub codepoint: u32,
@@ -120,20 +106,6 @@ pub struct GlyphInfo {
     pub cluster: u32,
     var1: hb::hb_var_int_t,
     var2: hb::hb_var_int_t,
-}
-
-impl fmt::Debug for GlyphInfo {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        unsafe {
-            f.debug_struct("GlyphInfo")
-                .field("codepoint", &self.codepoint)
-                .field("mask", &self.mask)
-                .field("cluster", &self.cluster)
-                .field("var1", &self.var1.u32)
-                .field("var2", &self.var2.u32)
-                .finish()
-        }
-    }
 }
 
 impl GlyphInfo {
